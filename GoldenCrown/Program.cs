@@ -29,6 +29,11 @@ namespace GoldenCrown
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/openapi/v1.json", "swagger");
+                });
             }
 
             app.UseHttpsRedirection();
