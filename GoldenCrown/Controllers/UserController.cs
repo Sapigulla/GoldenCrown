@@ -32,5 +32,20 @@ namespace GoldenCrown.Controllers
             }
             return BadRequest("Registration failed.");
         }
+
+        [HttpPost("login")] // POST api/user/login
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _userService.LoginAsync(request.Login, request.Password);
+            if (result)
+            {
+                return Ok(new { Token = result.Value });
+            }
+            return NotFound();
+        }
     }
 }
