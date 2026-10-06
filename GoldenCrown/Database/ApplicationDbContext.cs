@@ -52,6 +52,8 @@ namespace GoldenCrown.Database
                 .WithOne()
                 .HasForeignKey<Account>(x => x.UserId);
 
+            SeedAccountData(accountEntity);
+
             var sessionEntity = modelBuilder.Entity<Session>()
                 .ToTable("sessions");
             sessionEntity.HasKey(x => x.UserId);
@@ -105,7 +107,7 @@ namespace GoldenCrown.Database
                     Id = 1,
                     Login = "admin",
                     Name = "Administretor",
-                    Password = "admin" 
+                    Password = "admin"
                 },
                 new User
                 {
@@ -113,6 +115,24 @@ namespace GoldenCrown.Database
                     Login = "user",
                     Name = "Regular User",
                     Password = "user"
+                }
+            );
+        }
+
+        private void SeedAccountData(EntityTypeBuilder<Account> accountEntity)
+        {
+            accountEntity.HasData(
+                new Account
+                {
+                    Id = 1,
+                    UserId = 1,
+                    Balance = 1000m
+                },
+                new Account
+                {
+                    Id = 2,
+                    UserId = 2,
+                    Balance = 500m
                 }
             );
         }
